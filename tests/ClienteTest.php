@@ -17,7 +17,7 @@ class ClienteTest extends TestCase
         $this->assertMatchesRegularExpression("/^.+@.+\..+$/", $email);
     }
     
-    public function testTelefonoNumerico()
+public function testTelefonoNumerico()
     {
         $telefono = "123456789";
         $this->assertMatchesRegularExpression("/^[0-9]+$/", $telefono);
