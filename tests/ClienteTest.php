@@ -17,9 +17,12 @@ class ClienteTest extends TestCase
         $this->assertMatchesRegularExpression("/^.+@.+\..+$/", $email);
     }
     
-public function testTelefonoNumerico()
-    {
-        $telefono = "123456789";
-        $this->assertMatchesRegularExpression("/^[0-9]+$/", $telefono);
-    }
+public function testTelefonoSoloNumeros()
+{
+    $this->assertMatchesRegularExpression("/^[0-9]+$/", "123456789"); // ✅ válido
+    $this->assertDoesNotMatchRegularExpression("/^[0-9]+$/", "123abc"); // ❌ letras
+    $this->assertDoesNotMatchRegularExpression("/^[0-9]+$/", "123-456"); // ❌ guiones
+    $this->assertDoesNotMatchRegularExpression("/^[0-9]+$/", "");        // ❌ vacío
+}
+
 }

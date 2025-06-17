@@ -42,6 +42,11 @@
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if (!preg_match('/^[0-9]+$/', $_POST['telefono'])) {
+    echo "<p style='color:red;'>El teléfono solo debe contener números.</p>";
+    exit;
+}
+
   $stmt = $conn->prepare("INSERT INTO clientes (nombre, email, telefono, empresa, descripcion, calificacion) VALUES (?, ?, ?, ?, ?, ?)");
   $stmt->bind_param("sssssi", $_POST['nombre'], $_POST['email'], $_POST['telefono'], $_POST['empresa'], $_POST['descripcion'], $_POST['calificacion']);
   $stmt->execute();
