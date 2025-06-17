@@ -23,6 +23,15 @@
 
       <label for="descripcion">Descripción:</label>
       <textarea name="descripcion" id="descripcion" rows="4" cols="50"></textarea>
+      
+      <label for="calificacion">Calificación:</label>
+      <select name="calificacion" id="calificacion" required>
+      <option value="1">⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="5">⭐⭐⭐⭐⭐</option>
+      </select>
 
       <input type="submit" value="Guardar">
       <a href="index.php" class="btn-cancel">Cancelar</a>
@@ -33,8 +42,8 @@
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $stmt = $conn->prepare("INSERT INTO clientes (nombre, email, telefono, empresa, descripcion) VALUES (?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssss", $_POST['nombre'], $_POST['email'], $_POST['telefono'], $_POST['empresa'], $_POST['descripcion']);
+  $stmt = $conn->prepare("INSERT INTO clientes (nombre, email, telefono, empresa, descripcion, calificacion) VALUES (?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("sssssi", $_POST['nombre'], $_POST['email'], $_POST['telefono'], $_POST['empresa'], $_POST['descripcion'], $_POST['calificacion']);
   $stmt->execute();
   header("Location: index.php");
 }

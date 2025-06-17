@@ -27,6 +27,15 @@
 
       <label for="descripcion">Descripción:</label>
       <textarea name="descripcion" id="descripcion" rows="4" cols="50"><?php echo $row['descripcion']; ?></textarea>
+      <label for="calificacion">Calificación:</label>
+      <select name="calificacion" id="calificacion">
+  <?php
+  for ($i = 1; $i <= 5; $i++) {
+    $selected = $i == $row['calificacion'] ? "selected" : "";
+    echo "<option value='$i' $selected>" . str_repeat("⭐", $i) . "</option>";
+  }
+  ?>
+</select>
 
       <input type="submit" value="Actualizar">
       <a href="index.php" class="btn-cancel">Cancelar</a>
@@ -37,9 +46,10 @@
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $stmt = $conn->prepare("UPDATE clientes SET nombre=?, email=?, telefono=?, empresa=?, descripcion=? WHERE id=?");
-  $stmt->bind_param("sssssi", $_POST['nombre'], $_POST['email'], $_POST['telefono'], $_POST['empresa'], $_POST['descripcion'], $id);
+  $stmt = $conn->prepare("UPDATE clientes SET nombre=?, email=?, telefono=?, empresa=?, descripcion=?, calificacion=? WHERE id=?");
+  $stmt->bind_param("ssssssi", $_POST['nombre'], $_POST['email'], $_POST['telefono'], $_POST['empresa'], $_POST['descripcion'], $_POST['calificacion'], $id);
   $stmt->execute();
   header("Location: index.php");
 }
+
 ?>
